@@ -43,6 +43,16 @@ class Logger:
             return
         print(str)
 
+class Popup:
+
+    @staticmethod
+    def show(message = ""):
+
+        def draw(self, context):
+            self.layout.label(message)
+
+        bpy.context.window_manager.popup_menu(draw)
+
 class CopyVerticesWeights(bpy.types.Operator):
     bl_idname = 'mesh.copy_vertices_weights'
     bl_label = 'Copy Selected Vertices Weights'
@@ -70,6 +80,7 @@ class CopyVerticesWeights(bpy.types.Operator):
 
         Logger.log("Copy done ----------------------")
         
+        Popup.show("Copied!")
         return { "FINISHED" }
 
 class PasteVerticesWeights(bpy.types.Operator):
@@ -99,6 +110,7 @@ class PasteVerticesWeights(bpy.types.Operator):
                 Logger.log('Replaced bone(%s) vertex(%d) with weight(%6.6f)'%(boneName, vertIndex, boneWeight))
 
         obj.mode_set(mode=mode)
+        Popup.show("Pasted!")
         Logger.log("Paste done ----------------------")
         return { "FINISHED" }
 
